@@ -53,6 +53,7 @@ app.get('/urls/:id', (req, res) => {
 
 app.get('/urls', (req, res) => {
   res.render('urls_index', { urls: urlDatabase })
+  console.log('')
 });
 
 app.get('/urls.json', (req, res) => {
