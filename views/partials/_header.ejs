@@ -5,5 +5,8 @@
   <button type="submit">Submit</button>
 <% } else {%>
   <h3>Hello <%=username%>!</h3>
+  <form action="/logout" method="post">
+    <button type="submit">logout</button>
+  </form>
 <% } %>
 </form>
