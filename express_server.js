@@ -26,7 +26,6 @@ app.post('/urls/:id', (req, res) =>{
   res.redirect('/urls')
 })
 
-
 app.post("/urls", (req, res) => {
   let shortURL = generateRandomString(6);
   urlDatabase[shortURL] = req.body.longURL;
@@ -44,7 +43,7 @@ app.post('/logout', (req, res) => {
   res.redirect('/urls');
 })
 
-
+//GET requests
 app.get('/urls/new', (req, res) => {
   let templateVars = {username: req.cookies["username"] }
   res.render('urls_new', templateVars);
@@ -57,7 +56,6 @@ app.get('/urls/:id', (req, res) => {
   }
   res.render('urls_show', templateVars);
 })
-
 
 app.get('/urls', (req, res) => {
   let templateVars = {
@@ -76,12 +74,8 @@ app.get('/u/:shortURL', (req, res) => {
 })
 
 app.get('/', (req, res) => {
-  res.send('Hello there!');
+  res.redirect('/urls')
 });
-
-app.get('/hello', (req, res) => {
-  res.send('<html><body>Hello <b>World</b></body></html>\n')
-})
 
 app.listen(PORT, () => {
   console.log(`Express app listening on PORT ${PORT}`);
