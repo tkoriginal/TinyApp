@@ -1,4 +1,8 @@
 <header>
   <% include partials/_header %>
 </header>
-<p><a href='#''><%= longURL %>: <%= shortURL %></a></p>
+<h1>ShortURL: <%= shortURL %></h1>
+<form action="/urls/<%=shortURL%>" method="post"> 
+  <input type="text" name="longURL" id="longURL" value="<%=longURL%>">
+  <button>Update</button>
+</form>
