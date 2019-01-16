@@ -1,1 +1,9 @@
 <h1>Tiny App</h1>
+<% if (username === undefined) {%>
+<form action="/login" method="post">
+  <input type="text" name="username" id="username">
+  <button type="submit">Submit</button>
+<% } else {%>
+  <h3>Hello <%=username%>!</h3>
+<% } %>
+</form>
