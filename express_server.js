@@ -4,7 +4,7 @@ const cookieParser = require('cookie-parser');
 const PORT = 8080;
 
 const {generateRandomString} = require('./randomString');
-const {urlDatabase} = require('./data');
+const {urlDatabase, users} = require('./data');
 
 app.set('view engine', 'ejs');
 app.use(cookieParser());
@@ -42,6 +42,32 @@ app.post('/logout', (req, res) => {
   res.clearCookie('username');
   res.redirect('/urls');
 })
+app.post('/register', (req, res) => {
+  if (req.body.firstName === '' || 
+    req.body.lastName === '' || 
+    req.body.email === '' || 
+    req.body.password === '') {
+    res.status(400)
+       .send('Please do not leave any fields empty');
+  }
+  for (let userID in users) {
+    if (users[userID].email === req.body.email) {
+      console.log(users[userID].email, req.body.email)
+      res.status(400)
+        .send('Email already used');
+  }
+}
+  let userID = generateRandomString(7);
+  users[userID] = {
+    userID: userID,
+    firstName: req.body.firstName,
+    lastName:req.body.lastName, 
+    email: req.body.email, 
+    password: req.body.password
+  }
+  res.cookie('userID', users[userID].userID, {domain: 'localhost'});
+  res.redirect('/urls')
+})
 
 //GET requests
 app.get('/register', (req, res) => {
@@ -53,14 +79,20 @@ app.get('/u/:shortURL', (req, res) => {
 })
 
 app.get('/urls/new', (req, res) => {
-  let templateVars = {username: req.cookies["username"] }
+  let templateVars = {
+    userID: req.cookies["userID"],
+    firstName: function () { return users[this.userID].firstName}
+    }
   res.render('urls_new', templateVars);
 });
 
 app.get('/urls/:id', (req, res) => {
   let id = req.params.id;
   let templateVars = { 
-    shortURL: id, longURL:urlDatabase[id], username: req.cookies["username"]
+    shortURL: id, 
+    longURL:urlDatabase[id], 
+    userID: req.cookies["userID"],
+    firstName: function () { return users[this.userID].firstName }
   }
   res.render('urls_show', templateVars);
 })
@@ -68,7 +100,8 @@ app.get('/urls/:id', (req, res) => {
 app.get('/urls', (req, res) => {
   let templateVars = {
     urls: urlDatabase, 
-    username: req.cookies["username"] 
+    userID: req.cookies["userID"],
+    firstName: function () { return users[this.userID].firstName }
   }
   res.render('urls_index', templateVars)
 });

@@ -4,17 +4,21 @@ const urlDatabase = {
 }
 
 const users = {
-  "userRandomID": {
-    id: "userRandomID", 
+  "userID": {
+    userID: "userID",
+    firstName: "John",
+    lastName: "Doe",
     email: "user@example.com", 
     password: "purple-monkey-dinosaur"
   },
- "user2RandomID": {
-    id: "user2RandomID", 
+ "userID2": {
+    userID: "userID2", 
+    firstName: "Jane",
+    lastName: "Grant",
     email: "user2@example.com", 
     password: "dishwasher-funk"
   }
 }
 
 
-module.exports = {urlDatabase};
+module.exports = {urlDatabase, users};
