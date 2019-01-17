@@ -44,6 +44,14 @@ app.post('/logout', (req, res) => {
 })
 
 //GET requests
+app.get('/register', (req, res) => {
+  res.render('registration')
+})
+
+app.get('/u/:shortURL', (req, res) => {
+  res.redirect(urlDatabase[req.params.shortURL])
+})
+
 app.get('/urls/new', (req, res) => {
   let templateVars = {username: req.cookies["username"] }
   res.render('urls_new', templateVars);
@@ -69,9 +77,6 @@ app.get('/urls.json', (req, res) => {
   res.json(urlDatabase);
 });
 
-app.get('/u/:shortURL', (req, res) => {
-  res.redirect(urlDatabase[req.params.shortURL])
-})
 
 app.get('/', (req, res) => {
   res.redirect('/urls')
