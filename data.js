@@ -16,7 +16,7 @@ const users = {
     firstName: "Jane",
     lastName: "Grant",
     email: "user2@example.com", 
-    password: "dishwasher-funk"
+    password: "asd"
   }
 }
 

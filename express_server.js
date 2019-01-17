@@ -33,15 +33,28 @@ app.post("/urls", (req, res) => {
 });
 
 app.post('/login', (req, res) => {
-  const username = req.body.username;
-  res.cookie('username', username, {domain: 'localhost'});
-  res.redirect('/urls');
-})
+  let positiveHit = 0
+  let cookieUserId = ''
+  for (let userID in users) {
+    if (users[userID].email === req.body.email) {
+      positiveHit = 1
+      cookieUserId = users[userID].userID;
+    }
+  }
+  if (positiveHit === 1) {
+    res.cookie('userID', cookieUserId, {domain: 'localhost'});
+    res.redirect('/urls')
+  } else {
+    res.status(403)
+      .send('User not found');
+  }
+});
 
 app.post('/logout', (req, res) => {
-  res.clearCookie('username');
-  res.redirect('/urls');
+  res.clearCookie('userID');
+  res.redirect('/login');
 })
+
 app.post('/register', (req, res) => {
   if (req.body.firstName === '' || 
     req.body.lastName === '' || 
@@ -70,9 +83,13 @@ app.post('/register', (req, res) => {
 })
 
 //GET requests
+app.get('/login', (req, res) => {
+  res.render('login');
+});
+
 app.get('/register', (req, res) => {
   res.render('registration')
-})
+});
 
 app.get('/u/:shortURL', (req, res) => {
   res.redirect(urlDatabase[req.params.shortURL])
@@ -81,7 +98,7 @@ app.get('/u/:shortURL', (req, res) => {
 app.get('/urls/new', (req, res) => {
   let templateVars = {
     userID: req.cookies["userID"],
-    firstName: function () { return users[this.userID].firstName}
+    userObj: function () { return users[this.userID]}
     }
   res.render('urls_new', templateVars);
 });
@@ -92,7 +109,7 @@ app.get('/urls/:id', (req, res) => {
     shortURL: id, 
     longURL:urlDatabase[id], 
     userID: req.cookies["userID"],
-    firstName: function () { return users[this.userID].firstName }
+    userObj: function () { return users[this.userID] }
   }
   res.render('urls_show', templateVars);
 })
@@ -101,7 +118,7 @@ app.get('/urls', (req, res) => {
   let templateVars = {
     urls: urlDatabase, 
     userID: req.cookies["userID"],
-    firstName: function () { return users[this.userID].firstName }
+    userObj: function () { return users[this.userID] }
   }
   res.render('urls_index', templateVars)
 });
