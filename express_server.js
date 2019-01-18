@@ -6,7 +6,7 @@ const cookieSession = require('cookie-session');
 const bcrypt = require('bcrypt');
 const PORT = 8080;
 
-const {generateRandomString, getLongURL, addHttp} = require('./randomString');
+const {generateRandomString, getLongURL, addHttp, isValidLink} = require('./randomString');
 const {urlDatabase, users} = require('./data');
 
 app.set('view engine', 'ejs');
@@ -28,6 +28,7 @@ app.post('/urls/:id', (req, res) =>{
   let id = req.params.id;
   let newURL = req.body.longURL;
   urlDatabase[id].longURL = newURL;
+
   res.redirect('/urls')
 })
 
@@ -37,6 +38,7 @@ app.post("/urls", (req, res) => {
   const isValid = true //To start, all urls will be shown as valid and validated after
   const user_id = req.session.user_id;
   urlDatabase[shortURL] = { shortURL, longURL, user_id, isValid };
+  isValidLink(shortURL, longURL);
   console.log(urlDatabase);
   res.redirect(`/urls/${shortURL}`);
 });
@@ -148,8 +150,18 @@ app.get('/urls', (req, res) => {
   if (!req.session.user_id) {
     res.redirect('/login');
   } else {
+    userLink = {}
+    for (var shortURL in urlDatabase) {
+      if (urlDatabase[shortURL].user_id === req.session.user_id) {
+        userLink[shortURL] = {
+          shortURL: shortURL,
+          longURL: urlDatabase[shortURL].longURL,
+          isValid: urlDatabase[shortURL].isValid,
+        }
+      }
+    }
     let templateVars = {
-      urls: urlDatabase,
+      urls: userLink,
       userID: req.session.user_id,
       userObj: function () { return users[this.userID] }
     }

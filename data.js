@@ -1,9 +1,7 @@
-const urlDatabase = {
-  
+const urlDatabase = { 
 }
 
 const users = {
-  
 }
 
 
