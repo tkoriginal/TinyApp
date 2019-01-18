@@ -1,4 +1,7 @@
 const {urlDatabase} = require('./data')
+const request = require('request');
+
+
 const generateRandomString = (length) =>  {
   let chars = '01234567890QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm'
   let output = [];
@@ -25,4 +28,13 @@ function addHttp(url) {
   return url;
 }
 
-module.exports = {generateRandomString, getLongURL, addHttp};
+async function isValidLink(url) {
+  await request(url, (err, res) => {
+    if (res.statusCode === 200) {
+      return true;
+    }
+    return false;
+  })
+}
+
+module.exports = {generateRandomString, getLongURL, addHttp, isValidLink};

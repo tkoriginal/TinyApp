@@ -1,16 +1,16 @@
 require('dotenv').config();
 const app = require('express')();
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session');
 const bcrypt = require('bcrypt');
 const PORT = 8080;
 
-const {generateRandomString, getLongURL, addHttp} = require('./randomString');
+//Custom Imports
+const {generateRandomString, getLongURL, addHttp, isValidLink} = require('./randomString');
 const {urlDatabase, users} = require('./data');
 
+//Middleware
 app.set('view engine', 'ejs');
-app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieSession({
   secret: process.env.secret
@@ -18,33 +18,11 @@ app.use(cookieSession({
 
 
 //POST Requests
-app.post('/urls/:id/delete', (req, res) => {
-  let id = req.params.id;
-  console.log(id);
-  delete urlDatabase[req.session.user_id][id];
-  res.redirect('/urls')
-});
-
-app.post('/urls/:id', (req, res) =>{
-  let id = req.params.id;
-  let newURL = req.body.longURL;
-  urlDatabase[req.session.user_id][id] = newURL;
-  res.redirect('/urls')
-})
-
-app.post("/urls", (req, res) => {
-  let shortURL = generateRandomString(6);
-  longURL = addHttp(req.body.longURL);
-  urlDatabase[req.session.user_id][shortURL] = longURL;
-  console.log(urlDatabase);
-  res.redirect(`/urls/${shortURL}`);
-});
-
 app.post('/login', (req, res) => {
   let positiveHit = 0
   let cookieUserId = ''
   for (let userID in users) {
-    if (users[userID].email === req.body.email) {
+    if (users[userID].email === req.body.email && users[userID].email !== undefined) {
       positiveHit = 1
       cookieUserId = users[userID].userID;
     }
@@ -66,6 +44,29 @@ app.post('/logout', (req, res) => {
   res.redirect('/login');
 })
 
+app.post('/urls/:id/delete', (req, res) => {
+  let id = req.params.id;
+  console.log(id);
+  delete urlDatabase[req.session.user_id][id];
+  res.redirect('/urls')
+});
+
+app.post('/urls/:id', (req, res) =>{
+  let id = req.params.id;
+  let newURL = req.body.longURL;
+  urlDatabase[req.session.user_id][id] = newURL;
+  res.redirect('/urls')
+})
+
+app.post("/urls", (req, res) => {
+  let shortURL = generateRandomString(6);
+  longURL = addHttp(req.body.longURL);
+  isValidLink(longURL)
+  urlDatabase[req.session.user_id][shortURL] = longURL;
+  console.log(urlDatabase);
+  res.redirect(`/urls/${shortURL}`);
+});
+
 app.post('/register', (req, res) => {
   if (req.body.firstName === '' || 
     req.body.lastName === '' || 
@@ -73,6 +74,7 @@ app.post('/register', (req, res) => {
     req.body.password === '') {
     res.status(400)
        .send('Please do not leave any fields empty');
+    return
   }
   for (let userID in users) {
     if (users[userID].email === req.body.email) {
