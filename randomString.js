@@ -1,3 +1,4 @@
+const {urlDatabase} = require('./data')
 const generateRandomString = (length) =>  {
   let chars = '01234567890QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm'
   let output = [];
@@ -8,4 +9,20 @@ const generateRandomString = (length) =>  {
   return output.join('');
 };
 
-module.exports = {generateRandomString};
+function getLongURL(shortURL) {
+  for (userLinks in urlDatabase) {
+    if(!!urlDatabase[userLinks][shortURL]) {
+      return urlDatabase[userLinks][shortURL];
+    }
+  }
+  return null;
+}
+
+function addHttp(url) {
+  if (!/^(f|ht)tps?:\/\//i.test(url)) {
+     url = "http://" + url;
+  }
+  return url;
+}
+
+module.exports = {generateRandomString, getLongURL, addHttp};
