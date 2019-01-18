@@ -20,22 +20,23 @@ app.use(cookieSession({
 //POST Requests
 app.post('/urls/:id/delete', (req, res) => {
   let id = req.params.id;
-  console.log(id);
-  delete urlDatabase[req.session.user_id][id];
+  delete urlDatabase[id];
   res.redirect('/urls')
 });
 
 app.post('/urls/:id', (req, res) =>{
   let id = req.params.id;
   let newURL = req.body.longURL;
-  urlDatabase[req.session.user_id][id] = newURL;
+  urlDatabase[id].longURL = newURL;
   res.redirect('/urls')
 })
 
 app.post("/urls", (req, res) => {
-  let shortURL = generateRandomString(6);
-  longURL = addHttp(req.body.longURL);
-  urlDatabase[req.session.user_id][shortURL] = longURL;
+  const shortURL = generateRandomString(7);
+  const longURL = addHttp(req.body.longURL);
+  const isValid = true //To start, all urls will be shown as valid and validated after
+  const user_id = req.session.user_id;
+  urlDatabase[shortURL] = { shortURL, longURL, user_id, isValid };
   console.log(urlDatabase);
   res.redirect(`/urls/${shortURL}`);
 });
@@ -81,7 +82,7 @@ app.post('/register', (req, res) => {
         .send('Email already used');
     }
   }
-  let userID = generateRandomString(7);
+  let userID = generateRandomString(6);
   const password = req.body.password;
   const hashedPassword = bcrypt.hashSync(password, 10);
   users[userID] = {
@@ -91,8 +92,6 @@ app.post('/register', (req, res) => {
     email: req.body.email, 
     password: hashedPassword
   }
-  urlDatabase[userID] = {}
-  console.log(urlDatabase);
   req.session.user_id = userID;
   res.redirect('/urls')
 })
@@ -137,7 +136,7 @@ app.get('/urls/:id', (req, res) => {
     let userID = req.session.user_id;
     let templateVars = { 
       shortURL: id, 
-      longURL:urlDatabase[userID][id], 
+      longURL:urlDatabase[id].longURL, 
       userID: userID,
       userObj: function () { return users[this.userID] }
     }
