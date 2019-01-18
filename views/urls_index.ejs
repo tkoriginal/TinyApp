@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>TinyApp</title>
-
-</head>
-<body>
-    <header>
-        <% include partials/_header %>
-    </header>
-    <!-- Add your EJS code here -->
+<header>
+    <% include partials/_head %>
+</header>
+<header>
+    <% include partials/_header %>
+  </header>
   <h2>List of URLs</h2> <a href='/urls/new'>Create New Short URL</a>
   <ul>
       <% for (short in urls) { %>

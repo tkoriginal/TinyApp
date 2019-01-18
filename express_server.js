@@ -1,7 +1,6 @@
 require('dotenv').config();
 const app = require('express')();
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session');
 const bcrypt = require('bcrypt');
 const PORT = 8080;
@@ -10,7 +9,6 @@ const {generateRandomString, getLongURL, addHttp, isValidLink} = require('./rand
 const {urlDatabase, users} = require('./data');
 
 app.set('view engine', 'ejs');
-app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieSession({
   secret: process.env.secret
@@ -57,8 +55,8 @@ app.post('/login', (req, res) => {
     req.session.user_id = cookieUserId;
     res.redirect('/urls')
   } else {
-    res.status(403)
-      .send('User not found');
+    res.status(404)
+      .render('404',{message:'User not found'});
   }
 });
 
@@ -74,14 +72,14 @@ app.post('/register', (req, res) => {
     req.body.lastName === '' || 
     req.body.email === '' || 
     req.body.password === '') {
-    res.status(400)
-       .send('Please do not leave any fields empty');
+    res.status(404)
+       .render('404', {message:'Please do not leave any fields empty'});
   }
   for (let userID in users) {
     if (users[userID].email === req.body.email) {
       console.log(users[userID].email, req.body.email)
-      res.status(400)
-        .send('Email already used');
+      res.status(404)
+        .render('404',{message:'Email already used'});
     }
   }
   let userID = generateRandomString(6);
@@ -114,7 +112,7 @@ app.get('/u/:shortURL', (req, res) => {
     res.redirect(longURL);
   } else {
     res.status(404)
-       .send('Short Link doesn\'t exist. Please confirm the link!')
+      .render('404',{message:'Short Link doesn\'t exist. Please confirm the link!'})
   }
 })
 
@@ -130,7 +128,7 @@ app.get('/urls/new', (req, res) => {
   }
 });
 
-app.get('/urls/:id', (req, res) => {
+app.get('/urls/:id', (req, res) => { //FIX when ID doesn't exist
   if (!req.session.user_id) {
     res.redirect('/login');
   } else {
@@ -175,7 +173,11 @@ app.get('/urls.json', (req, res) => {
 
 
 app.get('/', (req, res) => {
-  res.redirect('/urls')
+  if (req.session.user_id){
+    res.redirect('/urls')
+  } else {
+    res.render('index')
+  }
 });
 
 app.listen(PORT, () => {
