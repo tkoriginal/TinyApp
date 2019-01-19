@@ -2,7 +2,7 @@
   <% include partials/_header %>
 </header>
 <a href="/urls">Return to list of URLs</a>
-<h1>ShortURL: <%= shortURL %></h1>
+<h1>ShortURL: http://localhost:8080/u/<%= shortURL %></h1>
 <form action="/urls/<%=shortURL%>" method="post"> 
   <input type="text" name="longURL" id="longURL" value="<%=longURL%>">
   <button>Update</button>

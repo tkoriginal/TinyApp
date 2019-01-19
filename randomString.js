@@ -11,11 +11,9 @@ const generateRandomString = (length) =>  {
 };
 
 function getLongURL(shortURL) {
-  for (userLinks in urlDatabase) {
-    if(!!urlDatabase[userLinks][shortURL]) {
-      return urlDatabase[userLinks][shortURL];
+    if(!!urlDatabase[shortURL]) {
+      return urlDatabase[shortURL].longURL;
     }
-  }
   return null;
 }
 
