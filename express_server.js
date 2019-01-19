@@ -60,7 +60,7 @@ app.post('/urls/:id', (req, res) =>{
 app.post("/urls", (req, res) => {
   let shortURL = generateRandomString(6);
   longURL = addHttp(req.body.longURL);
-  isValidLink(longURL)
+  // isValidLink(longURL)
   urlDatabase[req.session.user_id][shortURL] = longURL;
   console.log(urlDatabase);
   res.redirect(`/urls/${shortURL}`);
