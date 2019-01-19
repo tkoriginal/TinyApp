@@ -3,6 +3,7 @@ const app = require('express')();
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const bcrypt = require('bcrypt');
+const path = require('path');
 const PORT = 8080;
 
 const {generateRandomString, getLongURL, addHttp, isValidLink} = require('./randomString');
@@ -158,7 +159,9 @@ app.get('/urls', (req, res) => {
         }
       }
     }
+    const host = req.headers.host;
     let templateVars = {
+      host:host,
       urls: userLink,
       userID: req.session.user_id,
       userObj: function () { return users[this.userID] }
