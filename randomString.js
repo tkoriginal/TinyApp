@@ -1,7 +1,5 @@
 const {urlDatabase} = require('./data')
 const request = require('request');
-
-
 const generateRandomString = (length) =>  {
   let chars = '01234567890QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm'
   let output = [];
@@ -28,12 +26,11 @@ function addHttp(url) {
   return url;
 }
 
-async function isValidLink(url) {
-  await request(url, (err, res) => {
-    if (res.statusCode === 200) {
-      return true;
+function isValidLink(shortURL, LongURL) {
+  request(LongURL, async(err, res) => {
+    if (await res.statusCode !== 200) {
+      urlDatabase[shortURL].isValid = false;
     }
-    return false;
   })
 }
 

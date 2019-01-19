@@ -5,7 +5,6 @@ const cookieSession = require('cookie-session');
 const bcrypt = require('bcrypt');
 const PORT = 8080;
 
-//Custom Imports
 const {generateRandomString, getLongURL, addHttp, isValidLink} = require('./randomString');
 const {urlDatabase, users} = require('./data');
 
@@ -32,8 +31,8 @@ app.post('/login', (req, res) => {
     req.session.user_id = cookieUserId;
     res.redirect('/urls')
   } else {
-    res.status(403)
-      .send('User not found');
+    res.status(404)
+      .render('404',{message:'User not found'});
   }
 });
 
@@ -72,18 +71,17 @@ app.post('/register', (req, res) => {
     req.body.lastName === '' || 
     req.body.email === '' || 
     req.body.password === '') {
-    res.status(400)
-       .send('Please do not leave any fields empty');
-    return
+    res.status(404)
+       .render('404', {message:'Please do not leave any fields empty'});
   }
   for (let userID in users) {
     if (users[userID].email === req.body.email) {
       console.log(users[userID].email, req.body.email)
-      res.status(400)
-        .send('Email already used');
+      res.status(404)
+        .render('404',{message:'Email already used'});
     }
   }
-  let userID = generateRandomString(7);
+  let userID = generateRandomString(6);
   const password = req.body.password;
   const hashedPassword = bcrypt.hashSync(password, 10);
   users[userID] = {
@@ -93,8 +91,6 @@ app.post('/register', (req, res) => {
     email: req.body.email, 
     password: hashedPassword
   }
-  urlDatabase[userID] = {}
-  console.log(urlDatabase);
   req.session.user_id = userID;
   res.redirect('/urls')
 })
@@ -115,7 +111,7 @@ app.get('/u/:shortURL', (req, res) => {
     res.redirect(longURL);
   } else {
     res.status(404)
-       .send('Short Link doesn\'t exist. Please confirm the link!')
+      .render('404',{message:'Short Link doesn\'t exist. Please confirm the link!'})
   }
 })
 
@@ -131,7 +127,7 @@ app.get('/urls/new', (req, res) => {
   }
 });
 
-app.get('/urls/:id', (req, res) => {
+app.get('/urls/:id', (req, res) => { //FIX when ID doesn't exist
   if (!req.session.user_id) {
     res.redirect('/login');
   } else {
@@ -139,7 +135,7 @@ app.get('/urls/:id', (req, res) => {
     let userID = req.session.user_id;
     let templateVars = { 
       shortURL: id, 
-      longURL:urlDatabase[userID][id], 
+      longURL:urlDatabase[id].longURL, 
       userID: userID,
       userObj: function () { return users[this.userID] }
     }
@@ -151,8 +147,18 @@ app.get('/urls', (req, res) => {
   if (!req.session.user_id) {
     res.redirect('/login');
   } else {
+    userLink = {}
+    for (var shortURL in urlDatabase) {
+      if (urlDatabase[shortURL].user_id === req.session.user_id) {
+        userLink[shortURL] = {
+          shortURL: shortURL,
+          longURL: urlDatabase[shortURL].longURL,
+          isValid: urlDatabase[shortURL].isValid,
+        }
+      }
+    }
     let templateVars = {
-      urls: urlDatabase,
+      urls: userLink,
       userID: req.session.user_id,
       userObj: function () { return users[this.userID] }
     }
@@ -166,7 +172,11 @@ app.get('/urls.json', (req, res) => {
 
 
 app.get('/', (req, res) => {
-  res.redirect('/urls')
+  if (req.session.user_id){
+    res.redirect('/urls')
+  } else {
+    res.render('index')
+  }
 });
 
 app.listen(PORT, () => {

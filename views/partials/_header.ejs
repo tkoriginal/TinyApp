@@ -1,11 +1,12 @@
-<h1>Tiny App</h1>
+<h1>TinyApp</h1>
 <% if (userObj() === undefined) {%>
-<form action="/login" method="get">
-  <button type="submit">Login</button>
+  <form action="/login" method="get">
+    <button type="submit">Login</button>
   </form>
-<% } else {%>
-  <h3>Hello <%=userObj().firstName%>!</h3>
-  <form action="/logout" method="post">
-    <button type="submit">logout</button>
+  <% } else {%>
+    <h3>Hello <%=userObj().firstName%>!</h3>
+    <form action="/logout" method="post">
+      <button type="submit">logout</button>
+      <hr>
   </form>
 <% } %>
