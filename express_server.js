@@ -8,7 +8,6 @@ const PORT = 8080;
 const {generateRandomString, getLongURL, addHttp, isValidLink} = require('./randomString');
 const {urlDatabase, users} = require('./data');
 
-//Middleware
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieSession({
@@ -17,11 +16,36 @@ app.use(cookieSession({
 
 
 //POST Requests
+app.post('/urls/:id/delete', (req, res) => {
+  let id = req.params.id;
+  delete urlDatabase[id];
+  res.redirect('/urls')
+});
+
+app.post('/urls/:id', (req, res) =>{
+  let id = req.params.id;
+  let newURL = req.body.longURL;
+  urlDatabase[id].longURL = newURL;
+
+  res.redirect('/urls')
+})
+
+app.post("/urls", (req, res) => {
+  const shortURL = generateRandomString(7);
+  const longURL = addHttp(req.body.longURL);
+  const isValid = true //To start, all urls will be shown as valid and validated after
+  const user_id = req.session.user_id;
+  urlDatabase[shortURL] = { shortURL, longURL, user_id, isValid };
+  isValidLink(shortURL, longURL);
+  console.log(urlDatabase);
+  res.redirect(`/urls/${shortURL}`);
+});
+
 app.post('/login', (req, res) => {
   let positiveHit = 0
   let cookieUserId = ''
   for (let userID in users) {
-    if (users[userID].email === req.body.email && users[userID].email !== undefined) {
+    if (users[userID].email === req.body.email) {
       positiveHit = 1
       cookieUserId = users[userID].userID;
     }
@@ -42,29 +66,6 @@ app.post('/logout', (req, res) => {
   res.clearCookie('session.sig');
   res.redirect('/login');
 })
-
-app.post('/urls/:id/delete', (req, res) => {
-  let id = req.params.id;
-  console.log(id);
-  delete urlDatabase[req.session.user_id][id];
-  res.redirect('/urls')
-});
-
-app.post('/urls/:id', (req, res) =>{
-  let id = req.params.id;
-  let newURL = req.body.longURL;
-  urlDatabase[req.session.user_id][id] = newURL;
-  res.redirect('/urls')
-})
-
-app.post("/urls", (req, res) => {
-  let shortURL = generateRandomString(6);
-  longURL = addHttp(req.body.longURL);
-  // isValidLink(longURL)
-  urlDatabase[req.session.user_id][shortURL] = longURL;
-  console.log(urlDatabase);
-  res.redirect(`/urls/${shortURL}`);
-});
 
 app.post('/register', (req, res) => {
   if (req.body.firstName === '' || 
@@ -95,7 +96,7 @@ app.post('/register', (req, res) => {
   res.redirect('/urls')
 })
 
-//GET requests - 
+//GET requests
 app.get('/login', (req, res) => {
   res.render('login');
 });
@@ -127,7 +128,7 @@ app.get('/urls/new', (req, res) => {
   }
 });
 
-app.get('/urls/:id', (req, res) => { 
+app.get('/urls/:id', (req, res) => {
   if (!req.session.user_id) {
     res.redirect('/login');
   } else {
@@ -182,4 +183,3 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Express app listening on PORT ${PORT}`);
 });
-

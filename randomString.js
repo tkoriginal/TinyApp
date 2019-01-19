@@ -34,6 +34,4 @@ function isValidLink(shortURL, LongURL) {
   })
 }
 
-
-
 module.exports = {generateRandomString, getLongURL, addHttp, isValidLink};
