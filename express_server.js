@@ -95,7 +95,7 @@ app.post('/register', (req, res) => {
   res.redirect('/urls')
 })
 
-//GET requests
+//GET requests - 
 app.get('/login', (req, res) => {
   res.render('login');
 });
@@ -127,7 +127,7 @@ app.get('/urls/new', (req, res) => {
   }
 });
 
-app.get('/urls/:id', (req, res) => { //FIX when ID doesn't exist
+app.get('/urls/:id', (req, res) => { 
   if (!req.session.user_id) {
     res.redirect('/login');
   } else {
