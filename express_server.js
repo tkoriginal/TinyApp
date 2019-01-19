@@ -29,7 +29,7 @@ app.post('/urls/:id', (req, res) =>{
   let id = req.params.id;
   let newURL = req.body.longURL;
   urlDatabase[id].longURL = newURL;
-
+  isValidLink(id, newURL);
   res.redirect('/urls')
 })
 
@@ -159,7 +159,7 @@ app.get('/urls', (req, res) => {
         userLink[shortURL] = {
           shortURL: shortURL,
           longURL: urlDatabase[shortURL].longURL,
-          isValid: urlDatabase[shortURL].isValid,
+          isValid: urlDatabase[shortURL].isValid ? 'Valid Link' : 'Invalid Link',
         }
       }
     }

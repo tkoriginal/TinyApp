@@ -11,6 +11,7 @@
           <div>
             <div>
                 <button class='btn' data-clipboard-text="http://<%=host%>/u/<%=short%>">Copy</button>
+                <span><strong><%=urls[short].isValid%></strong></span>
                 <span id='link' value='http://<%=host%>/u/<%=short%>'>http://<%=host%>/u/<%=short%></span> 
             </div>
               <a href=<%= urls[short].longURL%>><%= urls[short].longURL %></a>
