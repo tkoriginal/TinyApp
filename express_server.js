@@ -1,5 +1,6 @@
 require('dotenv').config();
-const app = require('express')();
+const express = require('express');
+const app = express();
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const bcrypt = require('bcrypt');
@@ -14,6 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieSession({
   secret: process.env.secret
 }))
+app.use(express.static('public'));
 
 
 //POST Requests
@@ -135,10 +137,12 @@ app.get('/urls/:id', (req, res) => {
   } else {
     let id = req.params.id;
     let userID = req.session.user_id;
+    const host = req.headers.host;
     let templateVars = { 
       shortURL: id, 
       longURL:urlDatabase[id].longURL, 
       userID: userID,
+      host: host,
       userObj: function () { return users[this.userID] }
     }
     res.render('urls_show', templateVars);
