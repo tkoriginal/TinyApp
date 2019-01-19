@@ -128,7 +128,7 @@ app.get('/urls/new', (req, res) => {
   }
 });
 
-app.get('/urls/:id', (req, res) => { //FIX when ID doesn't exist
+app.get('/urls/:id', (req, res) => {
   if (!req.session.user_id) {
     res.redirect('/login');
   } else {
@@ -184,3 +184,4 @@ app.listen(PORT, () => {
   console.log(`Express app listening on PORT ${PORT}`);
 });
 
+//Have to merge with master
