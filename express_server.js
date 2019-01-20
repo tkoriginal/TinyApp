@@ -161,6 +161,7 @@ app.get('/urls', (req, res) => {
           shortURL: shortURL,
           longURL: urlDatabase[shortURL].longURL,
           isValid: urlDatabase[shortURL].isValid ? 'Valid Link' : 'Invalid Link',
+          timeStamp: moment(urlDatabase[shortURL].linkCreated).fromNow()
         }
       }
     }

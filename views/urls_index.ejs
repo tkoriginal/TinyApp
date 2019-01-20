@@ -9,6 +9,7 @@
       <% for (short in urls) { %>
         <li style="padding:3px">
           <div>
+            <span>created: <%=urls[short].timeStamp%></span>
             <div>
                 <button class='btn' data-clipboard-text="http://<%=host%>/u/<%=short%>">Copy</button>
                 <span><strong><%=urls[short].isValid%></strong></span>
