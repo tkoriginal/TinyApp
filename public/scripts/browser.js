@@ -1,1 +1,3 @@
-const copyBtn = new ClipboardJS('.btn');
+console.log('browser.js test')
+
+new ClipboardJS('.btn');

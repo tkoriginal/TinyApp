@@ -1,17 +1,26 @@
-<header>
-    <% include partials/_head %>
-</header>
-<header>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>TinyApp</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+  <link href="/styles/style.css" type="text/css"></link>
+</head>
+<body>
+  <header>
     <% include partials/_header %>
   </header>
-  <h2>List of URLs</h2> <a href='/urls/new'>Create New Short URL</a>
+  <h2>List of URLs</h2> 
+  <a href='/urls/new'>Create New Short URL</a>
   <ul>
       <% for (short in urls) { %>
         <li style="padding:3px">
           <div>
-            <span>created: <%=urls[short].timeStamp%></span>
+            <span><strong>created: </strong><%=urls[short].timeStamp%></span>
             <div>
-                <button class='btn' data-clipboard-text="http://<%=host%>/u/<%=short%>">Copy</button>
+                <button class="btn" data-clipboard-text="http://<%=host%>/u/<%=short%>">Copy</button>
                 <span><strong><%=urls[short].isValid%></strong></span>
                 <span id='link' value='http://<%=host%>/u/<%=short%>'>http://<%=host%>/u/<%=short%></span> 
             </div>
@@ -24,5 +33,6 @@
         </li>
       <% } %>
   </ul>
+<script src="/scripts/browser.js"></script>
 </body>
 </html>

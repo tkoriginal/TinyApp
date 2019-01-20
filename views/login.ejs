@@ -1,19 +1,18 @@
-<header>
+
     <% include partials/_head %>
-</header>
-<header>
-  <h1>Welcome to TinyApp</h1>
-</header>
-<body>
-  <form action="/login" method="post">
-    <label for="email">E-mail: </label>
-    <input type="email" name="email" id="email">
-    <label for="password">Password: </label>
-    <input type="password" name="password" id="password">
-    <button type="submit">Login</button>
-  </form>
-  <form action="/register" method="get">
-    <button type="submit">Register</button>
-  </form>
+  <body>
+    <header>
+      <h1>Welcome to TinyApp</h1>
+    </header>
+    <form action="/login" method="post">
+      <label for="email">E-mail: </label>
+      <input type="email" name="email" id="email">
+      <label for="password">Password: </label>
+      <input type="password" name="password" id="password">
+      <button type="submit">Login</button>
+    </form>
+    <form action="/register" method="get">
+      <button type="submit">Register</button>
+    </form>
   </body>
 </html>
