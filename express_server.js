@@ -4,7 +4,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const bcrypt = require('bcrypt');
-const path = require('path');
+const moment = require('moment');
 const PORT = 8080;
 
 const {generateRandomString, getLongURL, addHttp, isValidLink} = require('./randomString');
@@ -38,7 +38,8 @@ app.post("/urls", (req, res) => {
   const longURL = addHttp(req.body.longURL);
   const isValid = true //To start, all urls will be shown as valid and validated after
   const user_id = req.session.user_id;
-  urlDatabase[shortURL] = { shortURL, longURL, user_id, isValid };
+  const linkCreated = moment();
+  urlDatabase[shortURL] = { shortURL, longURL, user_id, isValid, linkCreated };
   isValidLink(shortURL, longURL);
   console.log(urlDatabase);
   res.redirect(`/urls/${shortURL}`);
