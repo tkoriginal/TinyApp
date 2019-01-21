@@ -6,33 +6,48 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>TinyApp</title>
   <link href="/static_files/style.css" type="text/css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
 </head>
 <body class="urls__body">
-  <header class="urls__header">
-    <% include partials/_header %>
-  </header>
-  <h2>List of URLs</h2> 
-  <a href='/urls/new'>Create New Short URL</a>
-  <ul>
-      <% for (short in urls) { %>
-        <li>
-          <div>
-            <span><strong>created: </strong><%=urls[short].timeStamp%></span>
-            <div>
-                <button class="btn" data-clipboard-text="http://<%=host%>/u/<%=short%>">Copy</button>
-                <span><strong><%=urls[short].isValid%></strong></span>
-                <span id='link' value='http://<%=host%>/u/<%=short%>'>http://<%=host%>/u/<%=short%></span> 
-            </div>
-              <a href=<%= urls[short].longURL%>><%= urls[short].longURL %></a>
-              <a href="/urls/<%=short%>">Edit</a>
-              <form method="post" action="/urls/<%=short%>/delete">
-                <button>Delete &#x1F5D1;</button>
-              </form>
-          </div>
-        </li>
-      <% } %>
-  </ul>
+  <div class="urls__img">
+  </div>
+  <div class="urls__container">
+    <header class="urls__header-container">
+      <% include partials/_header %>
+    </header>
+    <section class="urls__section-container">
+      <div class="urls__section-header">
+        <h2 class="urls__title">List of URLs</h2> 
+        <a href='/urls/new'>Create New Short URL</a>
+      </div>
+      <ul class="urls__list">
+          <% for (short in urls) { %>
+            <li>
+              <div>
+                <div class="urls__short">
+                  <span id='link' value='http://<%=host%>/u/<%=short%>'>http://<%=host%>/u/<%=short%></span> 
+                  <div class="urls__action">
+                    <button class="btn" data-clipboard-text="http://<%=host%>/u/<%=short%>">
+                      <i class="far fa-copy"></i>
+                    </button>
+                    <a href="/urls/<%=short%>"><i class="far fa-edit"></i></a>
+                      <form method="post" action="/urls/<%=short%>/delete">
+                        <button class="btn-delete"><i class="fas fa-trash-alt"></i></button>
+                      </form>
+                  </div>
+                </div>
+                  <a href=<%= urls[short].longURL%>><%= urls[short].longURL %></a>
+              </div>
+              <div class="urls__list-header">
+                <p class="urls__created">created: <%=urls[short].timeStamp%></p>
+                <p class="urls__valid"><%=urls[short].isValid%></p>
+              </div>
+            </li>
+          <% } %>
+      </ul>
+    </section>
+  </div>
 <script src="/static_files/browser.js"></script>
 </body>
 </html>
