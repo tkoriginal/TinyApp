@@ -68,8 +68,7 @@ html{
   outline:none;
   transition: .5s;
   border-radius: .3rem;
-  color: #666;
-  background-color: ;
+  color: #666; 
   -webkit-box-shadow: 0 0 0 30px #ffffffd7 inset !important;
 }
 
