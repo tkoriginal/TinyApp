@@ -1,5 +1,6 @@
 #TinyApp
 The App that will help shorten your URLs for you.
+Work-in progress version on [heroku](https://tk-tinyapp.herokuapp.com/)
 ---
 App built using Node, Express and EJS. Come with user authentication, session management (via cookie sessions).
 
