@@ -16,7 +16,7 @@ html{
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  background: url('./background_image2.jpg') no-repeat center center, linear-gradient(to top right, #FEAC5E , #C779D0, #4BC0C8);
+  background: url('./background_image2.jpg') no-repeat center center;
   background-size: cover;
   font-family: 'Raleway', sans-serif;
 }
@@ -118,4 +118,72 @@ html{
 
 .register__login a:hover{
   color: #2d7eff;
+}
+
+.urls__body{
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+  box-sizing: border-box;
+  background-size: cover;
+  font-family: 'Raleway', sans-serif;
+  position: relative;
+  
+}
+
+.urls__img{
+  background-image: url('./background_image2.jpg');
+  height: 100vh;
+  width: 100%;
+  filter: blur(30px);
+  -webkit-filter: blur(8px);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
+.urls__container{
+  width: 70%;
+  background-color: rgba(255, 255, 255, 0.6);
+  padding: 4rem 2rem;
+  margin-top: 4rem;
+  border-radius: 2rem;
+  min-height: 90vh;
+}
+
+.urls__header{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 3rem;
+}
+
+.urls__header h1{
+  font-size: 3rem;
+  align-self: center;
+  color: #666;
+}
+
+.urls__user{
+  display: flex;
+  align-self: flex-end;
+  margin-top: -4rem;
+}
+
+#logout{
+  border:none;
+  margin-left: .5rem;
+  cursor: pointer;
+  color: #6aa0f8;
+  background: none;
+}
+
+#logout:hover{
+  color: #0a68ff;
+  text-decoration: underline;
 }

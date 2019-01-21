@@ -9,30 +9,36 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
 </head>
 <body class="urls__body">
-  <header class="urls__header">
-    <% include partials/_header %>
-  </header>
-  <h2>List of URLs</h2> 
-  <a href='/urls/new'>Create New Short URL</a>
-  <ul>
-      <% for (short in urls) { %>
-        <li>
-          <div>
-            <span><strong>created: </strong><%=urls[short].timeStamp%></span>
-            <div>
-                <button class="btn" data-clipboard-text="http://<%=host%>/u/<%=short%>">Copy</button>
-                <span><strong><%=urls[short].isValid%></strong></span>
-                <span id='link' value='http://<%=host%>/u/<%=short%>'>http://<%=host%>/u/<%=short%></span> 
-            </div>
-              <a href=<%= urls[short].longURL%>><%= urls[short].longURL %></a>
-              <a href="/urls/<%=short%>">Edit</a>
-              <form method="post" action="/urls/<%=short%>/delete">
-                <button>Delete &#x1F5D1;</button>
-              </form>
-          </div>
-        </li>
-      <% } %>
-  </ul>
+  <div class="urls__img">
+  </div>
+  <div class="urls__container">
+    <header class="urls__header-container">
+      <% include partials/_header %>
+    </header>
+    <section class="urls__section-container">
+      <h2 class="urls__title">List of URLs</h2> 
+      <a href='/urls/new'>Create New Short URL</a>
+      <ul class="urls__list">
+          <% for (short in urls) { %>
+            <li>
+              <div>
+                <span><strong>created: </strong><%=urls[short].timeStamp%></span>
+                <div>
+                    <button class="btn" data-clipboard-text="http://<%=host%>/u/<%=short%>">Copy</button>
+                    <span><strong><%=urls[short].isValid%></strong></span>
+                    <span id='link' value='http://<%=host%>/u/<%=short%>'>http://<%=host%>/u/<%=short%></span> 
+                </div>
+                  <a href=<%= urls[short].longURL%>><%= urls[short].longURL %></a>
+                  <a href="/urls/<%=short%>">Edit</a>
+                  <form method="post" action="/urls/<%=short%>/delete">
+                    <button>Delete &#x1F5D1;</button>
+                  </form>
+              </div>
+            </li>
+          <% } %>
+      </ul>
+    </section>
+  </div>
 <script src="/static_files/browser.js"></script>
 </body>
 </html>
