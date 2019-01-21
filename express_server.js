@@ -186,7 +186,7 @@ app.get('/', (req, res) => {
   if (req.session.user_id){
     res.redirect('/urls')
   } else {
-    res.render('index')
+    res.render('registration')
   }
 });
 
