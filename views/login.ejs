@@ -1,18 +1,24 @@
 
     <% include partials/_head %>
-  <body>
-    <header>
-      <h1>Welcome to TinyApp</h1>
-    </header>
-    <form action="/login" method="post">
-      <label for="email">E-mail: </label>
-      <input type="email" name="email" id="email">
-      <label for="password">Password: </label>
-      <input type="password" name="password" id="password">
-      <button type="submit">Login</button>
-    </form>
-    <form action="/register" method="get">
-      <button type="submit">Register</button>
-    </form>
+  <body class="register__body">
+    <div class="container">
+      <header class="register__header">
+        <h1 class="header__title">Welcome to TinyApp</h1>
+      </header>
+      <div class="register__container" >
+        <form action="/login" method="post" class="register__form">
+          <div class="register__input-group">
+            <label for="email">E-mail:</label>
+            <input type="email" name="email" id="email" placeholder="E-mail">
+          </div>
+          <div class="register__input-group">
+            <label for="password">Password: </label>
+            <input type="password" name="password" id="password" placeholder="Password">
+          </div>
+          <button type="submit" class="register__button">Login</button>
+        </form>
+        <p class="register__login">Don't have an account? <a href="/register">Sign up</a> </p>
+      </div>
+    </div>
   </body>
 </html>
