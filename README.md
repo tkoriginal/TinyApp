@@ -18,4 +18,3 @@ App built using Node, Express and EJS. Come with user authentication, session ma
 - Links will be validated to ensure they are valid or let the user know
 - User will get stats on unique visits to their link
 - Users will have a view on when a link was created
-
