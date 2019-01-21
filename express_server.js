@@ -1,4 +1,5 @@
 require('dotenv').config();
+const path = require('path');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -15,8 +16,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieSession({
   secret: process.env.secret
 }))
-app.use(express.static('public'));
-
+app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'public/styles')))
 
 //POST Requests
 app.post('/urls/:id/delete', (req, res) => {

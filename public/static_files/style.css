@@ -1,0 +1,120 @@
+*, *::after, *::before{
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+
+}
+html{
+  font-size: 62.5%;
+  height: 100%;
+}
+
+.register__body {
+  min-height: 100%;
+  display: flex;
+  /* flex-direction: column; */
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  background: url('./background_image2.jpg') no-repeat center center, linear-gradient(to top right, #FEAC5E , #C779D0, #4BC0C8);
+  background-size: cover;
+  font-family: 'Raleway', sans-serif;
+}
+
+.register__header{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  color: #444;
+}
+
+.header__title{
+  font-size: 4.5rem;
+}
+
+.header__description{
+  font-size: 2.2rem;
+  margin-top: 1rem;
+  color: #666;
+}
+
+.register__container{
+  min-width: 50%;
+  margin-top: 5rem;
+}
+.register__form{
+  display: flex;
+  flex-direction: column;
+}
+
+.register__input-group{
+  font-size: 2rem;
+  padding: .8rem 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.register__input-group > label {
+  display: none;
+}
+
+.register__input-group > input {
+  height: 3rem;
+  padding: 2rem 1rem;
+  font-size: 1.6rem;
+  margin-top: 1.5rem;
+  border: none;
+  border-bottom: 2px solid #eee;
+  outline:none;
+  transition: .5s;
+  border-radius: .3rem;
+  color: #666;
+  background-color: ;
+  -webkit-box-shadow: 0 0 0 30px #ffffffd7 inset !important;
+}
+
+.register__input-group > input:focus{
+  outline:none;
+  border-bottom: 2px solid green;
+  background-color: aliceblue;
+  -webkit-box-shadow: 0 0 0 30px #ffffffd7 inset !important;
+}
+
+.register__button{
+  margin-top: 2rem;
+  padding: 1.2rem 1rem;
+  font-size: 2.5rem;
+  border: none;
+  border-radius: .3rem;
+  background-size: 200%;
+  background-image: linear-gradient(to right, #a1c4fd 0%, #c2e9fb 51%, #a1c4fd 100%);
+  transition: .4s all;
+  color: #444;
+}
+
+.register__button:hover{
+  background-position: right center;
+  color: #fff; /* change the direction of the change here */
+}
+
+.register__button:focus{
+  outline: none;
+}
+
+.register__login{
+  margin-top: 2rem;
+  font-size: 2rem;
+  text-align: center;
+  text-decoration: none;
+}
+
+.register__login a:link,
+.register__login a:visited{
+  text-decoration: none;
+  color: #6aa0f8;
+  transition: .2s ease-in;
+}
+
+.register__login a:hover{
+  color: #2d7eff;
+}

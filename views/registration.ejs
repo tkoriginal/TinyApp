@@ -1,18 +1,32 @@
     <% include partials/_head %>
-<header>
-    <h1>Welcome to TinyApp</h1>
-</header>
-<body>
-  <form action="/register" method="post">
-    <label for="firstName">First Name: </label>
-    <input type="text" name="firstName" id="firstName">
-    <label for="lastName">Last Name: </label>
-    <input type="text" name="lastName" id="lastName">
-    <label for="email">E-mail: </label>
-    <input type="email" name="email" id="email">
-    <label for="password">Password: </label>
-    <input type="password" name="password" id="password">
-    <button type="submit">Register: </button>
-  </form>
+<body class="register__body">
+  <div class="container">
+    <header class="register__header">
+        <h1 class="header__title">Welcome to TinyApp</h1>
+        <p class="header__description">Shorten and store your links in one place</p>
+    </header>
+    <div class="register__container">
+      <form action="/register" method="post" class="register__form">
+        <div class="register__input-group">
+          <input type="text" name="firstName" id="firstName" class="register__input" placeholder="First Name" required>
+          <label for="firstName" class="register__label">First Name: </label>
+        </div>
+        <div class="register__input-group">
+          <input type="text" name="lastName" id="lastName" class="register__input" placeholder="Last Name" required>
+          <label for="lastName" class="register__label">Last Name: </label>
+        </div>
+        <div class="register__input-group">
+          <input type="email" name="email" id="email" class="register__input" placeholder="E-mail" required>
+          <label for="email" class="register__label">E-mail: </label>
+        </div>
+        <div class="register__input-group">
+          <input type="password" name="password" id="password" class="register__input" placeholder="Password" required>
+          <label for="password" class="register__label">Password: </label>
+        </div>
+        <button type="submit" class="register__button">SIGN UP</button>
+      </form>
+      <p class="register__login">Already have an account? <a href="/login">Log in</a> </p>
+    </div>
+  </div>
 </body>
 </html>
