@@ -5,7 +5,7 @@
 App built using Node, Express and EJS. Come with user authentication, session management (via cookie sessions).
 
 ### Current Release feature (v1.0.0):
-- Allows users to create an account
+- Users can create an account
 - Users can create short links
 - Users can copy these links and post externally
 - Short links will redirect to appropriate website
@@ -13,8 +13,24 @@ App built using Node, Express and EJS. Come with user authentication, session ma
 - Users can delete links
 - Users can logout
 - Users state is preserved between sessions
+- Links will be validated to ensure they are valid or let the user know
+- Users will have a view on when a link was created
 
 ### Future Release features (v1.1.0):
-- Links will be validated to ensure they are valid or let the user know
 - User will get stats on unique visits to their link
-- Users will have a view on when a link was created
+
+### Setup
+- Fork and clone repo
+- ```npm install``` to get all dependencies
+- Create an `.env` file in the root folder to initiate cookie sessions and set up as `secret=token`  and 'token' can be any string
+- PORT is set to 8080 by default and can be modified in ```express_server.js```
+- `npm start` to start the server
+
+### Usage
+- Once the server is running, start by registering
+- New URLs can be created using the `Create New Short URL` link
+
+### Bugs/Work in progress
+- If a link has a space in it, the app will break
+- Styling is yet to be completed for the Edit and New URLs pages
+

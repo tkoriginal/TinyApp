@@ -1,14 +1,14 @@
 <div class="urls__header">
   <h1 class="urls__header-title">TinyApp</h1>
   <div class="urls__user">
-    <% if (userObj() === undefined) {%>
+    <% if (user === undefined) {%>
       <form action="/login" method="get">
         <button type="submit" class="header__button">Login</button>
       </form>
       <% } else {%>
         <div>
-          <h3>Hello <%=userObj().firstName%>!</h3>
-          <p><%=userObj().email%></p>
+          <h3>Hello <%=user.firstName%>!</h3>
+          <p><%=user.email%></p>
         </div>
       <form action="/logout" method="post" class="header__button">
         <button type="submit" id="logout">logout</button>
