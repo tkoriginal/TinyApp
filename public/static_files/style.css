@@ -325,6 +325,39 @@ main.urls__container--new{
 .urls__new-input label{
   font-size: 1.6rem;
   margin-bottom: 1rem;
+  color: #666; 
 }
 
+.urls__new-input input{
+  height: 3rem;
+  padding: 2rem 1rem;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  border: none;
+  border-bottom: 2px solid #eee;
+  outline:none;
+  transition: .5s;
+  border-radius: .3rem;
+  color: #666; 
+  -webkit-box-shadow: 0 0 0 30px #ffffffd7 inset !important;
+}
 
+.submit__button{
+  align-self: center;
+  margin-top: 2rem;
+  padding: 1.2rem 1rem;
+  font-size: 2.5rem;
+  width: 30rem;
+  border: none;
+  border-radius: .3rem;
+  background-size: 200%;
+  background-image: linear-gradient(to right, #a1c4fd 0%, #c2e9fb 51%, #a1c4fd 100%);
+  transition: .4s all;
+  color: #444;
+  cursor: pointer;
+}
+
+.submit__button:hover{
+  background-position: right center;
+  color: #fff; /* change the direction of the change here */
+}
