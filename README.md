@@ -22,7 +22,7 @@ App built using Node, Express and EJS. Come with user authentication, session ma
 ### Setup
 - Fork and clone repo
 - ```npm install``` to get all dependencies
-- Create an .ENV file in the root folder and set up as ``` secret=token```  and 'token' can be any string
+- Create an `.env` file in the root folder to initiate cookie sessions and set up as `secret=token`  and 'token' can be any string
 - PORT is set to 8080 by default and can be modified in ```express_server.js```
 - `npm start` to start the server
 
