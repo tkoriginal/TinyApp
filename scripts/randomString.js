@@ -1,4 +1,4 @@
-const {urlDatabase} = require('./data')
+const {urlDatabase} = require('../express_server.js')
 const request = require('request');
 const generateRandomString = (length) =>  {
   let chars = '01234567890QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm'
