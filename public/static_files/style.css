@@ -176,12 +176,24 @@ html{
   margin-top: -4rem;
 }
 
+.urls__user div{
+  margin-right: .6rem;
+}
+
+.urls__user h3{
+  font-size: 1.6rem;
+}
+
+.urls__user p{
+  font-size: 1.3rem;
+}
 #logout{
   border:none;
   margin-left: .5rem;
   cursor: pointer;
   color: #6aa0f8;
   background: none;
+  font-size: 1.6rem
 }
 
 #logout:hover{
@@ -231,8 +243,8 @@ html{
 
 .urls__list li{
   margin: 1rem;
-  background-color: rgba(248, 247, 247,0.4);
-  padding: 5rem 2rem 0 2rem;
+  background-color: rgba(241, 239, 239, 0.4);
+  padding: 3rem 2rem 0 2rem;
   list-style: none;
   font-size: 1.6rem;
 }
@@ -283,4 +295,36 @@ i:hover{
   color: #3d7bdf; 
   cursor: pointer;
 }
+
+main.urls__container--new{
+  width: 70%;
+  background-color: rgba(255, 255, 255, 0.6);
+  padding: 4rem 2rem;
+  margin-top: 4rem;
+  border-radius: 2rem;
+  min-height: 50rem;
+  margin: auto 0;
+}
+
+.urls__new-box{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  height: 40rem;
+}
+
+.urls__new-input{
+  margin: auto 0;
+  transform: translateY(-2rem);
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+}
+
+.urls__new-input label{
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+
 

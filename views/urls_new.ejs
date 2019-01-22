@@ -1,10 +1,21 @@
 <% include partials/_head %>
-<body style="font-size:20px; padding:50px;">
-  <% include partials/_header %> 
-  <form action="/urls" method="POST" style="margin:150px;">
-    <label for="longURL">Enter a URL:</label>
-    <input id="longURL" type="text" name="longURL" placeholder="http://" style="width: 300px">
-    <input type="submit" value="Submit">
-  </form>
+<body class="urls__body">
+  <div class="urls__img"></div>
+  <main class="urls__container--new">
+    <header class="urls__header-container">
+      <% include partials/_header %> 
+    </header>
+    <section class="urls__new-box">
+      <div class="urls__section-header">
+          <h2 class="urls__title">Create a new short URL</h2> 
+          <a href='/urls'>Return to URL list</a>
+        </div>
+      <form action="/urls" method="POST" class="urls__new-input">
+        <label for="longURL">Enter a URL:</label>
+        <input id="longURL" type="text" name="longURL" placeholder="http://" >
+        <input type="submit" value="Submit">
+      </form>
+    </section>
+  </main>
 </body>
 </html>
