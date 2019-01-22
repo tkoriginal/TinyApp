@@ -52,21 +52,20 @@ app.post("/urls", (req, res) => {
   const linkCreated = moment();
   urlDatabase[shortURL] = { shortURL, longURL, user_id, isValid, linkCreated };
   isValidLink(shortURL, longURL);
-  console.log(urlDatabase);
   res.redirect(`/urls/${shortURL}`);
 });
 
 //POST request for login form 
 app.post('/login', (req, res) => {
-  let positiveHit = 0
+  let positiveHit = false
   let cookieUserId = ''
   for (let userID in users) {
     if (users[userID].email === req.body.email) {
-      positiveHit = 1
+      positiveHit = true
       cookieUserId = users[userID].userID;
     }
   }
-  if (positiveHit === 1 && 
+  if (positiveHit && 
     bcrypt.compareSync(req.body.password, users[cookieUserId].password)){
     req.session.user_id = cookieUserId;
     res.redirect('/urls')
@@ -95,7 +94,6 @@ app.post('/register', (req, res) => {
   }
   for (let userID in users) {
     if (users[userID].email === req.body.email) {
-      console.log(users[userID].email, req.body.email)
       res.status(404)
         .render('404',{message:'Email already used'});
     }
@@ -127,7 +125,6 @@ app.get('/register', (req, res) => {
 //GET request to take a short URL and redirect to target URL
 app.get('/u/:shortURL', (req, res) => {
   const longURL = getLongURL(req.params.shortURL);
-  console.log(longURL);
   if (longURL) {
     res.redirect(longURL);
   } else {
@@ -143,8 +140,8 @@ app.get('/urls/new', (req, res) => {
   } else {
     let templateVars = {
       userID: req.session.user_id,
-      userObj: function () { return users[this.userID]}
-      }
+      user: users[req.session.user_id]
+    }
     res.render('urls_new', templateVars);
   }
 });
@@ -165,10 +162,9 @@ app.get('/urls/:id', (req, res) => {
       longURL:urlDatabase[id].longURL, 
       userID: userID,
       host: host,
-      userObj: function () { return users[this.userID] }
+      user: users[req.session.user_id] }
+      res.render('urls_show', templateVars);
     }
-    res.render('urls_show', templateVars);
-  }
 })
 
 //GET request to view all URLS that are setup by user
@@ -192,7 +188,7 @@ app.get('/urls', (req, res) => {
       host:host,
       urls: userLink,
       userID: req.session.user_id,
-      userObj: function () { return users[this.userID] }
+      user: users[req.session.user_id]
     }
     res.render('urls_index', templateVars)
   }
