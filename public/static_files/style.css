@@ -373,4 +373,9 @@ main.urls__container--new{
 
 .urls__copy p{
   margin-right: 1rem;
+  color: #aaa
+}
+
+.greetings{
+  color: #555;
 }
