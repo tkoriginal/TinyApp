@@ -3,7 +3,7 @@
   <div class="urls__user">
     <% if (user === undefined) {%>
       <form action="/login" method="get" class="header__button">
-        <button type="submit" >Login</button>
+        <button type="submit" class="login-out">Login</button>
       </form>
       <% } else {%>
         <div>
@@ -11,7 +11,7 @@
           <p><%=user.email%></p>
         </div>
       <form action="/logout" method="post" class="header__button">
-        <button type="submit" id="logout">logout</button>
+        <button type="submit" class="login-out">logout</button>
       </form>
     <% } %>
     </div>
