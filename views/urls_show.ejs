@@ -1,9 +1,26 @@
-<% include partials/_header %>
-<body>
-  <a href="/urls">Return to list of URLs</a>
-  <h1>ShortURL: http://<%=host%>/u/<%= shortURL %></h1>
-  <form action="/urls/<%=shortURL%>" method="post"> 
-    <input type="text" name="longURL" id="longURL" value="<%=longURL%>">
-    <button>Update</button>
-  </form>
+<% include partials/_head %>
+<body class="urls__body">
+  <div class="urls__img"></div>
+  <main class="urls__container--new">
+    <header class="urls__header-container">
+      <% include partials/_header %>
+    </header>
+    <section class="urls__new-box">
+        <div class="urls__section-header">
+          <a href="/urls">Return to list of URLs</a>
+          <h2 class="urls__title urls__title--update">Here is your Tiny URL</h2> 
+        </div>
+        <article class="urls__copy">
+          <p>http://<%=host%>/u/<%= shortURL %></p>
+          <button class="btn" data-clipboard-text="http://<%=host%>/u/<%=short%>">
+            <i class="far fa-copy"></i>
+          </button>
+        </article>
+          <form action="/urls/<%=shortURL%>" method="post" class="urls__new-input"> 
+            <input type="text" name="longURL" id="longURL" value="<%=longURL%>">
+            <button class="submit__button">Update</button>
+          </form>
+    </section>
+  </main>
+  <script src="/static_files/browser.js"></script>
 </body>
