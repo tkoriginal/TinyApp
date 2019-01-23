@@ -187,7 +187,7 @@ html{
 .urls__user p{
   font-size: 1.3rem;
 }
-form .login-out{
+.login-out{
   border:none;
   margin-left: .5rem;
   cursor: pointer;
@@ -219,6 +219,10 @@ form .login-out{
   margin-bottom: 1rem;
   font-size: 2rem;
   color: #666;
+}
+
+h2.urls__title--update{
+  margin-top: 3rem;
 }
 
 .urls__section-header a:link, 
@@ -360,4 +364,18 @@ main.urls__container--new{
 .submit__button:hover{
   background-position: right center;
   color: #fff; /* change the direction of the change here */
+}
+
+.urls__copy{
+  display: flex;
+  font-size: 2rem;
+}
+
+.urls__copy p{
+  margin-right: 1rem;
+  color: #aaa
+}
+
+.greetings{
+  color: #555;
 }
