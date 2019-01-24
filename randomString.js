@@ -1,5 +1,8 @@
-const {urlDatabase} = require('../express_server.js')
 const request = require('request');
+
+const urlDatabase = {}
+const users = {}
+
 const generateRandomString = (length) =>  {
   let chars = '01234567890QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm'
   let output = [];
@@ -26,6 +29,7 @@ function addHttp(url) {
 
 function isValidLink(shortURL, LongURL) {
   request(LongURL, async(err, res) => {
+    console.log(urlDatabase);
     if (await res.statusCode !== 200) {
       urlDatabase[shortURL].isValid = false;
     }
@@ -33,4 +37,4 @@ function isValidLink(shortURL, LongURL) {
   })
 }
 
-module.exports = {generateRandomString, getLongURL, addHttp, isValidLink};
+module.exports = {generateRandomString, getLongURL, addHttp, isValidLink, urlDatabase, users};

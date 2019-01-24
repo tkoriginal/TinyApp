@@ -11,11 +11,8 @@ const moment = require('moment');
 const PORT = 8080
 
 //Location modules required
-const {generateRandomString, getLongURL, addHttp, isValidLink} = require('./scripts/randomString');
+const {generateRandomString, getLongURL, addHttp, isValidLink, urlDatabase, users} = require('./randomString');
 
-//In memory data structures 
-const urlDatabase = {}
-const users = {}
 
 //Express Middleware
 app.set('view engine', 'ejs');
@@ -210,5 +207,3 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Express app listening on PORT ${PORT}`);
 });
-
-module.exports = {urlDatabase}
