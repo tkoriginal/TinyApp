@@ -29,6 +29,7 @@ function isValidLink(shortURL, LongURL) {
     if (await res.statusCode !== 200) {
       urlDatabase[shortURL].isValid = false;
     }
+    console.log(urlDatabase[shortURL]);
   })
 }
 

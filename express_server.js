@@ -7,7 +7,8 @@ const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const bcrypt = require('bcrypt');
 const moment = require('moment');
-const PORT = process.env.PORT;
+// const PORT = process.env.PORT;
+const PORT = 8080
 
 //Location modules required
 const {generateRandomString, getLongURL, addHttp, isValidLink} = require('./scripts/randomString');
@@ -32,7 +33,7 @@ app.post('/urls/:id/delete', (req, res) => {
   res.redirect('/urls')
 });
 
-//POST Requests to edit a link
+//POST Requests to edit a link 
 app.post('/urls/:id', (req, res) =>{
   let id = req.params.id;
   let newURL = req.body.longURL;
