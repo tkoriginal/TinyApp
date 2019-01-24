@@ -7,8 +7,7 @@ const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const bcrypt = require('bcrypt');
 const moment = require('moment');
-// const PORT = process.env.PORT;
-const PORT = 8080
+const PORT = process.env.PORT;
 
 //Location modules required
 const {generateRandomString, getLongURL, addHttp, isValidLink, urlDatabase, users} = require('./randomString');
