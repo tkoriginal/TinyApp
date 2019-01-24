@@ -1,5 +1,10 @@
-const {urlDatabase} = require('../express_server.js')
 const request = require('request');
+
+
+//In memory data structures 
+const urlDatabase = {}
+const users = {}
+
 const generateRandomString = (length) =>  {
   let chars = '01234567890QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm'
   let output = [];
@@ -9,6 +14,8 @@ const generateRandomString = (length) =>  {
   }
   return output.join('');
 };
+
+
 
 function getLongURL(shortURL) {
     if(!!urlDatabase[shortURL]) {
@@ -32,4 +39,4 @@ function isValidLink(shortURL, LongURL) {
   })
 }
 
-module.exports = {generateRandomString, getLongURL, addHttp, isValidLink};
+module.exports = {generateRandomString, getLongURL, addHttp, isValidLink, urlDatabase, users};
