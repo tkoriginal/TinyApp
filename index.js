@@ -9,7 +9,7 @@ const bcrypt = require('bcrypt');
 const moment = require('moment');
 
 //Configuration
-const PORT = 8080;
+const PORT = 3002;
 
 //Location modules required
 const {generateRandomString, getLongURL, addHttp, isValidLink, urlDatabase, users} = require('./scripts/randomString');
