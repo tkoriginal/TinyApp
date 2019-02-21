@@ -21,31 +21,33 @@
         <h2 class="urls__title">List of URLs</h2> 
         <a href='/urls/new'>Create New Short URL</a>
       </div>
-      <ul class="urls__list">
-          <% for (short in urls) { %>
-            <li>
-              <div>
-                <div class="urls__short">
-                  <span id='link' value='http://<%=host%>/u/<%=short%>'>http://<%=host%>/u/<%=short%></span> 
-                  <div class="urls__action">
-                    <button class="btn" data-clipboard-text="http://<%=host%>/u/<%=short%>">
-                      <i class="far fa-copy"></i>
-                    </button>
-                    <a href="/urls/<%=short%>"><i class="far fa-edit"></i></a>
-                      <form method="post" action="/urls/<%=short%>/delete">
-                        <button class="btn-delete"><i class="fas fa-trash-alt"></i></button>
-                      </form>
+      <div class="urls__list-container">
+        <ul class="urls__list">
+            <% for (short in urls) { %>
+              <li>
+                <div>
+                  <div class="urls__short">
+                    <span id='link' value='http://<%=host%>/u/<%=short%>'>http://<%=host%>/u/<%=short%></span> 
+                    <div class="urls__action">
+                      <button class="btn" data-clipboard-text="http://<%=host%>/u/<%=short%>">
+                        <i class="far fa-copy"></i>
+                      </button>
+                      <a href="/urls/<%=short%>"><i class="far fa-edit"></i></a>
+                        <form method="post" action="/urls/<%=short%>/delete">
+                          <button class="btn-delete"><i class="fas fa-trash-alt"></i></button>
+                        </form>
+                    </div>
                   </div>
+                    <a href=<%= urls[short].longURL%>><%= urls[short].longURL %></a>
                 </div>
-                  <a href=<%= urls[short].longURL%>><%= urls[short].longURL %></a>
-              </div>
-              <div class="urls__list-header">
-                <p class="urls__created">created: <%=urls[short].timeStamp%></p>
-                <p class="urls__valid"><%=urls[short].isValid%></p>
-              </div>
-            </li>
-          <% } %>
-      </ul>
+                <div class="urls__list-header">
+                  <p class="urls__created">created: <%=urls[short].timeStamp%></p>
+                  <p class="urls__valid"><%=urls[short].isValid%></p>
+                </div>
+              </li>
+            <% } %>
+        </ul>
+      </div>
     </section>
   </div>
 <script src="/static_files/browser.js"></script>
