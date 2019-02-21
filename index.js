@@ -152,7 +152,7 @@ app.get('/urls/:id', (req, res) => {
   } else {
     let id = req.params.id;
     let userID = req.session.user_id;
-    const host = req.headers.host;
+    const host = 'tiny.tkhan.ca';
     let templateVars = { 
       shortURL: id, 
       longURL:urlDatabase[id].longURL, 
@@ -179,7 +179,7 @@ app.get('/urls', (req, res) => {
         }
       }
     }
-    const host = req.headers.host;
+    const host = 'tiny.tkhan.ca';
     let templateVars = {
       host:host,
       urls: userLink,
