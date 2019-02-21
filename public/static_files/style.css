@@ -8,6 +8,7 @@ html{
   font-size: 62.5%;
   height: 100%;
 }
+ 
 
 .register__body {
   min-height: 100%;
@@ -379,3 +380,19 @@ main.urls__container--new{
 .greetings{
   color: #555;
 }
+
+@media only screen and (max-width: 600px) {
+  html{
+    font-size: 50%;
+  }
+  .container{
+    max-width: 90%;
+  }
+  .header__title{
+    font-size: 3.5rem;
+  }
+  .header__description{
+    font-size: 1.8rem;
+  }
+
+} 
